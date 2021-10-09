@@ -39,16 +39,17 @@
 
     <main class="pt-10 md:max-w-4xl mx-auto min-h-full">
         <div class="px-9 py-5">
-            <div class="flex flex-col md:flex-row md:flex-grow gap-y-10">
+            <div class="flex flex-col justify-center md:flex-row md:flex-grow gap-y-10">
                 <!-- User -->
                 <div>
-                    <h3 class="text-xl lg:text-4xl text-black font-bold uppercase tracking-wider md:text-center">User
+                    <h3 class="text-xl lg:text-4xl text-black font-bold uppercase tracking-wider md:text-center"><%= username %> 
                     </h3>
+                    <p id="player_id" class="hidden"> <%= player_id %>  </p>
                     <div class="mt-5 flex justify-between md:flex-col md:gap-y-5 items-center" id="players">
                         <% dataImgs.forEach(dataImg=> { %>
                             <div
                                 class="w-24 flex items-center justify-center p-3 cursor-pointer rounded-[30px] hover:bg-abu-abu transition duration-100">
-                                <img src=" <%= dataImg.img  %>  " alt="" class="object-cover" />
+                                <img src=" <%= dataImg.img  %>  " alt="<%=dataImg.value%>" class="object-cover"  />
                             </div>
                             <% }) %>
                     </div>
@@ -56,9 +57,8 @@
                 <!-- User -->
 
                 <!-- button & info -->
-                <div class="flex items-center justify-center md:flex-col md:flex-grow px-3 md:mt-[120px]">
-                    <div class="w-6/12 md:hidden"></div>
-
+                <div class="flex items-center justify-center md:flex-col md:flex-grow px-3">
+                    
                     <div class="w-6/12 md:w-full h-full flex items-center md:justify-center" id="text-result">
                         <div id="textVS">
                             <h2 class="text-6xl text-red-700 font-bold md:text-8xl">VS</h2>
@@ -73,25 +73,26 @@
                 </div>
                 <!-- button & info -->
 
-                <!-- Computer -->
-                <div>
-                    <h3 class="text-xl lg:text-4xl text-black font-bold uppercase tracking-wider md:text-center">Com
-                    </h3>
-                    <div class="mt-5 flex justify-between md:flex-col md:flex-grow md:gap-y-5" id="computers">
-                        <% dataImgs.forEach(dataImg=> { %>
-                            <div
-                                class="w-24 flex items-center justify-center p-3 rounded-[30px] transition duration-100">
-                                <img src=" <%= dataImg.img  %>  " alt="" class="object-cover" />
-                            </div>
-                            <% }) %>
-                    </div>
-                </div>
-                <!-- Computer -->
             </div>
         </div>
     </main>
 
-    <script src="/javascript/oop.js"></script>
+    <!-- <script src="/javascript/oop.js"></script> -->
+    <script>
+    let pilihanPlayer = document.querySelectorAll('#players div')
+    let player_id = document.querySelector('#player_id').textContent
+
+
+    pilihanPlayer.forEach((pilih)=> {
+        pilih.addEventListener('click', ()=>{
+           let pilihan = pilih.getElementsByTagName('img')[0].alt
+
+           alert(`Player ${player_id} memilih ${pilihan}`)
+         
+        })
+    })
+
+    </script>
 </body>
 
 </html>

@@ -21,10 +21,7 @@ module.exports = {
           notelp: req.body.notelp,
           id_user: result.id,
         })
-        res.json({
-          message: 'berhasil memasukkan data',
-          data: req.body,
-        })
+        res.redirect('/login')
       })
       .catch((err) => next(err))
   },

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   user_in_room.init(
     {
       room_id: DataTypes.INTEGER,
-      pilihan_tangan: DataTypes.STRING,
+      pilihan_tangan: DataTypes.INTEGER,
     },
     {
       sequelize,

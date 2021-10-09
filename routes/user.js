@@ -19,5 +19,6 @@ router.post('/make-room', restrict, user.createRoom)
 
 /* === INPUT ROOM === */
 router.get('/input-room', restrict, user.pageInputRoom)
+router.post('/input-room', restrict, user.inputRoom)
 
 module.exports = router

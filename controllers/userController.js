@@ -1,10 +1,23 @@
 const { master_room } = require('../models')
+const { Op } = require('sequelize')
+
+let ids = {
+  idPlayer1: null,
+  idPlayer2: null,
+}
 
 module.exports = {
   /* === DASHBOARD === */
 
   pageDashboard: (req, res) => {
-    res.render('User/Dashboard/index', { title: 'Dashboard User' })
+    let username = req.user.dataValues.username
+    let id = req.user.dataValues.id
+    // console.log(req.user.dataValues)
+    res.render('User/Dashboard/index', {
+      title: 'Dashboard User',
+      username,
+      id,
+    })
   },
 
   // allHistoryFight: async (req, res) => {
@@ -50,5 +63,34 @@ module.exports = {
   /* === INPUT ROOM === */
   pageInputRoom: (req, res) => {
     res.render('User/InputRoom/index', { title: 'Dashboard User' })
+  },
+
+  inputRoom: async (req, res) => {
+    let data = await master_room.findOne({
+      where: { kode_unik: req.body.kode_unik },
+    })
+
+    let isIdPlayer1 = await master_room.findOne({
+      where: {
+        [Op.and]: [
+          { kode_unik: req.body.kode_unik },
+          { id_player_1: req.user.dataValues.id },
+        ],
+      },
+    })
+
+    if (data) {
+      if (isIdPlayer1) {
+        ids.idPlayer1 = req.user.dataValues.id
+      } else {
+        ids.idPlayer2 = req.user.dataValues.id
+      }
+
+      console.log(ids)
+
+      res.redirect('/game')
+    } else {
+      res.redirect('/login')
+    }
   },
 }
