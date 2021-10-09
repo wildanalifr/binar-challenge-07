@@ -1,8 +1,8 @@
 exports.pageGame = (req, res) => {
   const dataImgs = [
-    { img: '/assets/chapter-04/batu.png', value: 'batu' },
-    { img: '/assets/chapter-04/kertas.png', value: 'kertas' },
-    { img: '/assets/chapter-04/gunting.png', value: 'gunting' },
+    { img: '/assets/chapter-04/batu.png', value: 0 },
+    { img: '/assets/chapter-04/kertas.png', value: 1 },
+    { img: '/assets/chapter-04/gunting.png', value: 2 },
   ]
 
   let username = req.user.dataValues.username

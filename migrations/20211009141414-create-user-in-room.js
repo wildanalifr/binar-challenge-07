@@ -8,10 +8,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      room_id: {
+      id_room: {
+        type: Sequelize.INTEGER
+      },
+      id_user: {
         type: Sequelize.INTEGER
       },
       pilihan_tangan: {
+        type: Sequelize.INTEGER
+      },
+      permainan_ke: {
+        type: Sequelize.INTEGER
+      },
+      point: {
         type: Sequelize.INTEGER
       },
       createdAt: {

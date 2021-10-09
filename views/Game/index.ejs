@@ -49,7 +49,7 @@
                         <% dataImgs.forEach(dataImg=> { %>
                             <div
                                 class="w-24 flex items-center justify-center p-3 cursor-pointer rounded-[30px] hover:bg-abu-abu transition duration-100">
-                                <img src=" <%= dataImg.img  %>  " alt="<%=dataImg.value%>" class="object-cover"  />
+                                <img src=" <%= dataImg.img  %>  " alt="<%=dataImg.value%>" class="object-cover"  />                                
                             </div>
                             <% }) %>
                     </div>
@@ -78,17 +78,33 @@
     </main>
 
     <!-- <script src="/javascript/oop.js"></script> -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
     let pilihanPlayer = document.querySelectorAll('#players div')
     let player_id = document.querySelector('#player_id').textContent
+
+
+    const BASE_URL = 'http://localhost:3000/user/user-in-room';
+
+    const getAxios = async (pilihan_tangan) => {
+    try {
+        const response = await axios.post(`${BASE_URL}`,{
+            pilihan_tangan
+        });
+        console.log(response)
+    } catch (errors) {
+        console.error(errors);
+    }
+    };
 
 
     pilihanPlayer.forEach((pilih)=> {
         pilih.addEventListener('click', ()=>{
            let pilihan = pilih.getElementsByTagName('img')[0].alt
 
-           alert(`Player ${player_id} memilih ${pilihan}`)
-         
+        //    alert(`Player ${player_id} memilih ${pilihan}`)
+            // console.log('pilihan tangan', pilihan)
+            getAxios(pilihan)
         })
     })
 

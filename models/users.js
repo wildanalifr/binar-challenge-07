@@ -1,7 +1,6 @@
 'use strict'
 const { Model } = require('sequelize')
 
-//import bcrypt
 const bcrypt = require('bcrypt')
 
 module.exports = (sequelize, DataTypes) => {
@@ -19,23 +18,28 @@ module.exports = (sequelize, DataTypes) => {
       })
     }
 
-    //enkripsi password untuk register
     static #encrypt = (password) => bcrypt.hashSync(password, 10)
 
-    //register
+    // Lalu, kita buat method register
     static register = ({ username, password, email }) => {
       const encryptedPassword = this.#encrypt(password)
+      /*
+      #encrypt dari static method
+      encryptedPassword akan sama dengan string
+      hasil enkripsi password dari method #encrypt
+      */
       return this.create({
         username,
-        email,
         password: encryptedPassword,
+        email,
         isAdmin: false,
       })
     }
 
-    //login
+    /* Method .compareSync digunakan untuk mencocokkan plaintext dengan hash. */
     checkPassword = (password) => bcrypt.compareSync(password, this.password)
 
+    /* Method Authenticate, untuk login */
     static authenticate = async ({ username, password }) => {
       try {
         const user = await this.findOne({ where: { username } })
