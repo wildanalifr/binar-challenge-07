@@ -24,4 +24,7 @@ router.post('/input-room', restrict, user.inputRoom)
 /* === USER IN ROOM === */
 router.post('/user-in-room', restrict, user.inputUserInRoom)
 
+/* === USER LAIN SUDAH INPUT ATAU BELUM === */
+router.get('/user-sudah-input', restrict, user.userLainInput)
+
 module.exports = router

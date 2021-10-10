@@ -104,55 +104,71 @@ module.exports = {
       permainan_ke: 1,
       point: null,
     }
+
+    console.log(data)
+
     // await user_in_room
     //   .create(data)
     //   .then((result) => {
     //     console.log('berhasil tambah data')
-    //     userLainInput()
+    //     console.log(result)
     //   })
     //   .catch((err) => {
     //     console.log(err)
     //   })
 
-    let permainan_ke = data.permainan_ke
-    let id_user = data.id_user
-
-    userLainInput(id_room, permainan_ke, id_user)
+    console.log('berhasil tambah data')
   },
-}
 
-//check apakah user lain sudah input ?
-async function userLainInput(id_room, permainan_ke, id_user) {
-  //check data masih kosong atau tidak?
-  let data = await user_in_room.findAll({
-    where: {
-      [Op.and]: [{ id_room: id_room }, { permainan_ke: permainan_ke }],
-    },
-  })
+  //check apakah user lain sudah input ?
+  userLainInput: async (req, res) => {
+    let permainan_ke = 1
+    let id_user = req.user.dataValues.id
+    // (id_room, permainan_ke, id_user)
+    //check data masih kosong atau tidak?
+    let data = await user_in_room.findAll({
+      where: {
+        [Op.and]: [{ id_room: id_room }, { permainan_ke: permainan_ke }],
+      },
+    })
 
-  let userLain = await user_in_room.findOne({
-    where: {
-      [Op.and]: [{ id_room: id_room }, { permainan_ke: permainan_ke }],
-      id_user: { [Op.ne]: id_user },
-    },
-  })
+    //jika ditemukan user lain yang sudah input
+    let userLain = await user_in_room.findOne({
+      where: {
+        [Op.and]: [{ id_room: id_room }, { permainan_ke: permainan_ke }],
+        id_user: { [Op.ne]: id_user },
+      },
+    })
 
-  let poin = null
+    //apakah boleh melanjutkan perjalanan
+    // let isNext = null
 
-  // console.log(userLain)
-  // data[0].dataValues.id_user == id_user
+    // console.log(userLain)
+    // data[0].dataValues.id_user == id_user
 
-  if (data == '') {
-    console.log('belum ada data yang masuk')
-  } else {
-    console.log('sudah ada data yang masuk')
-    if (!userLain) {
-      console.log('user lain belum memasukkan data')
-      poin = null
+    if (data == '') {
+      console.log('belum ada data yang masuk')
     } else {
-      console.log('user lain sudah memasukkan data')
+      console.log('sudah ada data yang masuk')
+      if (userLain) {
+        console.log(
+          'user lain sudah memasukkan data, anda tidak boleh klik lagi'
+        )
+        // isNext = false
+        res.json({
+          bolehLanjut: true,
+        })
+      } else {
+        console.log('user lain belum memasukkan data')
+        // isNext = true
+        res.json({
+          bolehLanjut: false,
+        })
+      }
     }
-  }
+  },
+
+  inputMasterRoom: async (req, res) => {},
 }
 
 // function checkInput(){
