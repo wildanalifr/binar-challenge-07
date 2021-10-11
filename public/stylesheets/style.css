@@ -1597,10 +1597,6 @@ select {
 }
 
 @media (min-width: 768px) {
-  .md\:mt-\[120px\] {
-    margin-top: 120px;
-  }
-
   .md\:flex {
     display: flex;
   }
