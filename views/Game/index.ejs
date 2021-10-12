@@ -77,56 +77,36 @@
         </div>
     </main>
 
-    <!-- <script src="/javascript/oop.js"></script> -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/javascript/oop2.js"></script>
     <script>
-    let pilihanPlayer = document.querySelectorAll('#players div')
-    let player_id = document.querySelector('#player_id').textContent
+    // let pilihanPlayer = document.querySelectorAll('#players div')
+    // let player_id = document.querySelector('#player_id').textContent
     
-    const BASE_URL = 'http://localhost:3000/user';
+    // const BASE_URL = 'http://localhost:3000/user';
 
-    async function postPilihan (pilihan_tangan) {
-        await axios.post(`${BASE_URL}/user-in-room`,{
-            pilihan_tangan
-        })
-    };
+    // async function postPilihan (pilihan_tangan) {
+    //     await axios.post(`${BASE_URL}/user-in-room`,{
+    //         pilihan_tangan
+    //     })
+    // };
 
-    async function getSudahInput(){
-        let data = null
-        const response = await axios.get(`${BASE_URL}/user-sudah-input`)
-        .then(result =>{
-            data =  result.data.bolehLanjut
-        })
-        return data
-    }
+    // async function getSudahInput(){
+    //     let data = null
+    //     const response = await axios.get(`${BASE_URL}/user-sudah-input`)
+    //     .then(result =>{
+    //         data =  result.data.bolehLanjut
+    //     })
+    //     return data
+    // }
     
-    pilihanPlayer.forEach((pilih)=> {
-        pilih.addEventListener('click', ()=>{
-           let pilihan = pilih.getElementsByTagName('img')[0].alt
-            
-            // alert(`Player ${player_id} memilih ${pilihan}`)
-            // console.log('pilihan tangan', pilihan)
-            
-            postPilihan(pilihan)
+    // pilihanPlayer.forEach((pilih)=> {
+    //     pilih.addEventListener('click', ()=>{
+    //        let pilihan = pilih.getElementsByTagName('img')[0].alt
+   
+    //         postPilihan(pilihan)
 
-
-            // getSudahInput().then(result=> {
-            //     console.log(result)
-            //     //jika userlain sudah memasukkan data
-            //     if(result){
-            //         // postPilihan(pilihan)
-            //         alert('terimakasih sudah klik data')
-            //     }else {
-            //         alert('user lain sudah memasukkan data, anda tidak boleh memasukkan data lagi')
-            
-            //     }
-            // })
-
-            // getAxios(pilihan)
-
-            // console.log('boleh lanjut ',bolehLanjut)
-        })
-    })
+    //     })
+    // })
 
     </script>
 </body>

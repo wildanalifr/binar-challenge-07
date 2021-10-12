@@ -105,17 +105,17 @@ module.exports = {
       point: null,
     }
 
-    console.log(data)
+    // console.log(data)
 
-    // await user_in_room
-    //   .create(data)
-    //   .then((result) => {
-    //     console.log('berhasil tambah data')
-    //     console.log(result)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
+    await user_in_room
+      .create(data)
+      .then((result) => {
+        console.log('berhasil tambah data')
+        console.log(result)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
     console.log('berhasil tambah data')
   },
@@ -140,6 +140,16 @@ module.exports = {
       },
     })
 
+    let kamuSudahInputApaBelum = await user_in_room.findOne({
+      where: {
+        [Op.and]: [
+          { id_room: id_room },
+          { permainan_ke: permainan_ke },
+          { id_user: id_user },
+        ],
+      },
+    })
+
     //apakah boleh melanjutkan perjalanan
     // let isNext = null
 
@@ -150,19 +160,27 @@ module.exports = {
       console.log('belum ada data yang masuk')
     } else {
       console.log('sudah ada data yang masuk')
-      if (userLain) {
-        console.log(
-          'user lain sudah memasukkan data, anda tidak boleh klik lagi'
-        )
-        // isNext = false
-        res.json({
-          bolehLanjut: true,
-        })
-      } else {
-        console.log('user lain belum memasukkan data')
-        // isNext = true
+      // if (userLain) {
+      //   console.log('user lain sudah memasukkan data')
+      //   res.json({
+      //     bolehLanjut: true,
+      //   })
+      // } else {
+      //   console.log('user lain belum memasukkan data')
+
+      //   res.json({
+      //     bolehLanjut: false,
+      //   })
+      // }
+      if (kamuSudahInputApaBelum) {
+        console.log('kamu sudah input')
         res.json({
           bolehLanjut: false,
+        })
+      } else {
+        console.log('kamu belum input')
+        res.json({
+          bolehLanjut: true,
         })
       }
     }
